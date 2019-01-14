@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_partner_form" model="ir.ui.view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field eval="50" name="priority"/>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <field name="category_id" position="after">
+                        <field name="social_reason" placeholder="Razón Social"/>
+                    </field>
+                    <notebook position="inside">
+                        <page string="Direcciónes">
+                            <field name="address_ext_ids" mode="tree" context="{'default_partner_id': active_id}" >
+                                <tree string="Direcciones" editable="bottom">
+                                    <field name="address_type"/>
+                                    <field name="name"/>
+                                    <field name="aduana_id"/>
+                                    <field name="deposit_number"/>
+                                    <field name="partner_id" invisible="1"/>
+                                    <field name="country_id"/>
+                                    <field name="city_id"/>
+                                    <field name="street"/>
+                                    <field name="opening"/>
+                                    <field name="closing"/>
+                                    <field name="rest"/>
+                                </tree>
+                            </field>
+                        </page>
+                        <page string="Rubro">
+                            <group>
+                                <group>
+                                    <field name="dispatcher"/>
+                                    <field name="freighter"/>
+                                    <div colspan="4" attrs="{'invisible': [('freighter','=',False)]}" style="border: 1px solid #DDDDDD; background-color: #EEEEEE; padding-left: 20px; padding-right: 20px; border-radius: 3px;">
+                                        <group colspan="4" col="4" attrs="{'invisible': [('freighter','=',False)]}">
+                                            <field name="permissive"/>
+                                            <field name="dangers_loads"/>
+                                            <field name="native_lic_number"/>
+                                            <field name="native_lic_date"/>
+                                            <field name="comp_lic_number"/>
+                                            <field name="comp_lic_date"/>
+                                            <field name="policy_number"/>
+                                        </group>
+                                    </div>
+                                    <field name="ministries"/>
+                                    <field name="driver"/>
+                                    <div colspan="4" attrs="{'invisible': [('driver','=',False)]}" style="border: 1px solid #DDDDDD; background-color: #EEEEEE; padding-left: 20px; padding-right: 20px; border-radius: 3px;">
+                                        <group colspan="4" col="6" attrs="{'invisible': [('driver','=',False)]}">
+                                            <field name="imo"/>
+                                            <field name="is_ras_property"/>
+                                        </group>
+                                    </div>
+                                    <field name="gen_of_message"/>
+                                    <field name="user_zf"/>
+                                    <field name="remittent"/>
+                                    <field name="receiver"/>
+                                    <field name="supplier_peons"/>
+                                    <field name="supplier_hoist"/>
+                                    <field name="consignee"/>
+                                    <field name="carrier"/>
+                                    <field name="where_paper"/>
+                                    <field name="load_agent"/>
+                                    <field name="seller"/>
+                                    <field name="deposito"/>
+                                    <field name="playa"/>
+                                </group>
+                            </group>
+                        </page>
+                        <page string="Gastos por Defecto">
+                            <group colspan="4">
+                                <field name="expenses_ids" nolabel="1">
+                                    <tree editable="botton">
+                                        <field name="product_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                                        <field name="product_qty"/>
+                                    </tree>
+                                </field>
+                            </group>
+                        </page>
+                        <page string="Fecha de expiración" attrs="{'invisible': [('driver','=',False)]}">
+                            <field name="exp_type_date_ids" nolabel="1" context="{'show_partner': 0}"/>
+                        </page>
+                    </notebook>
+                    <field name="user_id" position="before">
+                        <field name="partner_seller_id" options="{'no_create_edit': True, 'no_create': True}"/>
+                    </field>
+                </data>
+            </field>
+        </record>
+
+
+
+        <record id="view_res_partner_filter_assign" model="ir.ui.view">
+            <field name="name">res.partner.service.inherit.search</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <field name="name" position="replace">
+                    <field name="name" filter_domain="['|','|','|','|',('display_name','ilike',self),('ref','=',self),('email','ilike',self),('social_reason','ilike',self),('vat','ilike',self)]"/>
+                </field>
+            </field>
+        </record>
+
+    </data>
+</odoo>

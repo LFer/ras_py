@@ -1,0 +1,3 @@
+Nombre,Grupo,Objeto,Permiso de escritura,Permiso para eliminar,Permiso para leer,Acceso para crear
+ver_consolidado_carga,servicio_consolidado.consolidado_manager,servicio_consolidado.model_carpeta_camion,True,True,True,True
+ver_carga_camion,servicio_consolidado.consolidado_manager,servicio_consolidado.model_carga_camion,True,True,True,True

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="rt_service_product_calendar_tree_view" model="ir.ui.view">
+            <field name="name">rt.service.product.calendar.tree</field>
+            <field name="model">rt.service.productos</field>
+            <field name="arch" type="xml">
+                <tree string="Servicios" create="false">
+                    <field name="name" string="Nombre"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="start_datetime"/>
+                    <field name="state"/>
+                    <field name="tree_color" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rt_service_product_calendar_from_view" model="ir.ui.view">
+            <field name="name">rt.service.product.calendar.from</field>
+            <field name="model">rt.service.productos</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="start"/>
+                                <field name="stop"/>
+                                <field name="rt_service_id"/>
+                                <field name="name"/>
+                                <field name="cliente_id"/>
+                                <field name="rt_carpeta_id" required="0" context = "{'default_operation_type':'national',
+                                                                                     'default_partner_invoice_id': cliente_id,
+                                                                                     'default_reference': obs}" />
+                                <field name="rt_carga_id" required="0" invisible="1"/>
+                                <field name="obs" nolabel="0" placeholder="Observaciones."/>
+                            </group>
+                            <group string="Movimientos" colspan="2">
+                                <button class="oe_stat_button"
+                                        type="object"
+                                        icon="fa-search"
+                                        name="get_info_from_nodes"
+                                        string="Movimientos">
+                                </button>
+                                <field name="html_field" widget="html" nolabel="1" colspan="2"/>
+                            </group>
+                        </group>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+        <record id="view_calendar_service_product" model="ir.ui.view">
+            <field name="name">service.product.calendar.event.calendar</field>
+            <field name="model">rt.service.productos</field>
+            <field name="priority" eval="2"/>
+            <field name="arch" type="xml">
+                <calendar string="Servicios" date_start="start" date_stop="stop" date_delay="duration" all_day="allday"
+                          readonly_form_view_id="%(servicio_base.rt_service_product_calendar_from_view)s"
+                          event_open_popup="true"
+                          event_limit="30"
+                          color="cliente_id">
+                    <field name="name"/>
+                    <field name="driver_id"/>
+                    <field name="partner_id"/>
+                    <field name="cliente_id"/>
+                    <field name="calendar_cantidad"/>
+                    <field name="calendar_size"/>
+                    <field name="calendar_ref"/>
+                    <field name="calendar_matricula"/>
+                    <field name="calendar_dua"/>
+                    <field name="calendar_partner_id"/>
+                    <field name="calendar_partner_chofer_id"/>
+                    <field name="calendar_partner_chofer_fletero"/>
+                </calendar>
+            </field>
+        </record>
+
+
+        <record id="action_calendar_service_rt_service_product_normal" model="ir.actions.act_window">
+            <field name="name">Servicios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service.productos</field>
+            <field name="view_mode">calendar,tree,form</field>
+            <field name="context">{"is_from_calendar_view":True}</field>
+            <field name="view_id" ref="view_calendar_service_product"/>
+            <field name="help" type="html">
+                <p>
+                    Here is a list of each service product to be invoiced. You can
+                    invoice service product partially, by lines of service.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem
+                id="menu_calendario_servicio_root"
+                name="Calendario Servicios"
+                web_icon="calendar,static/description/icon.png"
+                groups="base.group_user"
+                sequence="75"/>
+
+        <menuitem
+                id="menu_calendario_service_main"
+                name="Calendario Servicio"
+                parent="menu_calendario_servicio_root"
+                groups="base.group_user"
+        />
+
+        <menuitem action="action_calendar_service_rt_service_product_normal"
+                  parent="menu_calendario_service_main"
+                  id="servcio_calendario_menu"
+                  groups="base.group_user"
+        />
+
+    </data>
+</odoo>

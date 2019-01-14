@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="servicio_template_view_search" model="ir.ui.view">
+            <field name="name">service.template</field>
+            <field name="model">service.template</field>
+            <field name="arch" type="xml">
+                <search string="Busque una plantilla">
+                    <filter string="Archivada" name="inactive" domain="[('active','=', False)]"/>
+                </search>
+            </field>
+        </record>
+
+
+        <record id='view_servicio_template_form' model='ir.ui.view'>
+            <field name="name">rt.service.template.form</field>
+            <field name="model">service.template</field>
+            <field name="arch" type="xml">
+                <form string="Carpeta">
+                    <sheet>
+                        <h1>
+                            <field name="name" class="oe_inline"/>
+                        </h1>
+                        <group>
+                            <field name="regimen"/>
+                            <field name="partner_id"/>
+                            <field name="partner_invoice_id"/>
+                            <field name="partner_dispatcher_id"/>
+                        </group>
+                        <group>
+                            <field name="pricelist_id"/>
+                            <field name="currency_id"/>
+                        </group>
+                        <notebook>
+                            <page string="Cargas">
+                                <field name="carga_template_ids" mode="tree" context="{'default_service_template_id' : active_id}">
+                                    <tree string="Cargas">
+                                        <field name="id" widget="handle"/>
+                                        <field name="name"/>
+                                        <field name="load_type"/>
+                                        <field name="currency_id"/>
+                                        <field name="importe" widget="monetary"/>
+                                    </tree>
+                                    <form string="Cargas">
+                                        <notebook>
+                                            <page string="Principal de la Carga">
+                                                <group>
+                                                    <h1>
+                                                        <field name="name" placeholder="Referencia..."/>
+                                                    </h1>
+                                                </group>
+                                                <group>
+                                                    <group>
+                                                        <field name="service_template_id" invisible="0"/>
+                                                        <field name="load_type"/>
+                                                    </group>
+                                                    <group>
+                                                        <field name="pallet_type"/>
+                                                    </group>
+                                                </group>
+                                                <group>
+                                                    <group>
+                                                        <field name="currency_id"/>
+                                                        <field name="importe" widget="monetary"/>
+                                                    </group>
+                                                </group>
+                                                <notebook>
+                                                    <page string="Productos">
+                                                        <field name="producto_servicio_template_ids" mode="tree" context="{'default_carga_template_id' : active_id}">
+                                                            <tree string="Productos">
+                                                                <field name="partner_id"/>
+                                                                <field name="product_id"/>
+                                                                <field name="action_type"/>
+                                                                <field name="location_type"/>
+                                                                <field name="currency_id"/>
+                                                                <field name="importe" widget="monetary"/>
+                                                            </tree>
+                                                            <form string="Productos">
+                                                                <sheet>
+                                                                    <h1>
+                                                                        <field name="name"/>
+                                                                    </h1>
+                                                                    <group>
+                                                                        <group>
+                                                                            <field name="product_id"/>
+                                                                            <field name="partner_id"/>
+                                                                            <field name="importe" widget="monetary"/>
+                                                                            <field name="valor_compra" widget="monetary"/>
+                                                                        </group>
+                                                                        <group>
+                                                                            <field name="currency_id"/>
+                                                                            <field name="carga_template_id" invisible="0"/>
+                                                                            <field name="location_type"/>
+                                                                            <field name="action_type"/>
+                                                                        </group>
+                                                                    </group>
+                                                                </sheet>
+                                                            </form>
+                                                        </field>
+                                                    </page>
+                                                </notebook>
+                                            </page>
+                                        </notebook>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="servicio_template_view_tree" model="ir.ui.view">
+            <field name="name">servicio.template.tree</field>
+            <field name="model">service.template</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Plantilla">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="servicio_tempĺate_action" model="ir.actions.act_window">
+            <field name="name">Plantillas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">service.template</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    Crea tu plantilla de carpeta
+                </p>
+                <p>
+                    Use plantillas para crear estructuras pulidas y profesionales en minutos.
+                    Envíe estas carpetas por correo electrónico y deje que sus clientes firmen en línea.
+                    Use ventas cruzadas y descuentos para impulsar y aumentar sus ventas.
+                </p>
+            </field>
+        </record>
+
+        <menuitem
+                  id="servicio_template_menu"
+                  action="servicio_tempĺate_action"
+                  parent="menu_service_config"
+                  sequence="1"
+                  name="Plantillas"
+        />
+
+    </data>
+</odoo>

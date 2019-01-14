@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record id="seq_rt_service" model="ir.sequence">
+            <field name="name">Carpeta Nacional - </field>
+            <field name="code">rt.service.nacional</field>
+            <field name="prefix">Carpeta Nacional/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rt_service_inter" model="ir.sequence">
+            <field name="name">Carpeta Internacional - </field>
+            <field name="code">rt.service.internacional</field>
+            <field name="prefix">Carpeta Internacional/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+        <record id="seq_rt_carga_nacional" model="ir.sequence">
+            <field name="name">Carga Nacional</field>
+            <field name="code">rt.carga.nacional</field>
+            <field name="prefix">CN/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rt_carga_internacional" model="ir.sequence">
+            <field name="name">Carga Internacional</field>
+            <field name="code">rt.carga.internacional</field>
+            <field name="prefix">CI/%(range_year)s/</field>
+            <field name="padding">3</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rt_servicio_internacional" model="ir.sequence">
+            <field name="name">Servicio Internacional</field>
+            <field name="code">rt.servicio.internacional</field>
+            <field name="prefix">SI/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_rt_servicio_nacional" model="ir.sequence">
+            <field name="name">Servicio Nacional</field>
+            <field name="code">rt.servicio.nacional</field>
+            <field name="prefix">SN/%(range_year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+
+        <!--<record model="rt.service.type">-->
+            <!--<field name="name">FCL</field>-->
+        <!--</record>-->
+
+        <!--<record model="rt.service.type">-->
+            <!--<field name="name">LTL</field>-->
+        <!--</record>-->
+
+        <!--<record model="rt.service.type">-->
+            <!--<field name="name">FTL</field>-->
+        <!--</record>-->
+
+        <!--<record model="rt.invoice.type">-->
+            <!--<field name="name">Viaje</field>-->
+        <!--</record>-->
+
+        <!--<record model="rt.invoice.type">-->
+            <!--<field name="name">Hora</field>-->
+        <!--</record>-->
+
+        <!--<record model="rt.invoice.type">-->
+            <!--<field name="name">Tonelada</field>-->
+        <!--</record>-->
+
+        <!--<record model="rt.invoice.type">-->
+            <!--<field name="name">Metro Cubico</field>-->
+        <!--</record>-->
+
+
+    </data>
+</odoo>

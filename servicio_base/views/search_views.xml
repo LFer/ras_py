@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="view_rt_service_product_uninvoiced_filter" model="ir.ui.view">
+            <field name="name">rt.service.product.uninvoiced.line</field>
+            <field name="model">rt.service.productos</field>
+            <field name="arch" type="xml">
+                <search string="Search Uninvoiced Service Product">
+                    <filter icon="terp-dolar_ok" string="No Facturado" name="uninvoiced" domain="[('invoiced','&lt;&gt;', 1)]"/>
+                    <filter icon="terp-dolar_ok" string="Facturado" name="invoiced" domain="[('invoiced','=', 1)]"/>
+                    <filter icon="terp-dolar_ok" string="Facturable" name="invoiceable" domain="[('is_invoiced','=', 1)]"/>
+                    <!--<filter icon="terp-dolar_ok!" string="Uninvoiced" name="uninvoiced" domain="[('invoiced','&lt;&gt;', 1),('state','&lt;&gt;','draft'),('state','&lt;&gt;','cancel')]"/>-->
+                    <field name="product_id"/>
+                    <field name="currency_id"/>
+                    <group expand="1" string="Group By">
+                        <filter name="filter_service" string="Service" icon="terp-gtk-jump-to-rtl" domain="[]" context="{'group_by':'rt_service_id'}"/>
+                        <filter name="filter_product" string="Product" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'product_id'}"/>
+                        <filter name="filter_currency" string="Currency" icon="terp-dolar_ok!" domain="[]" context="{'group_by':'currency_id'}"/>
+                        <filter name="filter_planta" string="Planta Destino" icon="terp-dolar_ok!" domain="[]" context="{'group_by':'partner_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="rt_service_product_tree_view" model="ir.ui.view">
+            <field name="name">rt.service.product.tree</field>
+            <field name="model">rt.service.productos</field>
+            <field name="arch" type="xml">
+                <tree string="Servicios" fonts="bold:state=='confirm';italic:state=='done'"
+                      colors="grey:tree_color=='grey';blue:tree_color=='blue';red:tree_color=='red';#ffcc00:tree_color=='gold';#ff9900:tree_color=='orange'"
+                      create="false"
+                >
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="start_datetime"/>
+                    <field name="state"/>
+                    <field name="tree_color" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_rt_service_product_tree2" model="ir.actions.act_window">
+            <field name="name">Service Products to Invoice</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service.productos</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="search_view_id" ref="view_rt_service_product_uninvoiced_filter"/>
+            <field name="view_id" ref="rt_service_product_tree_view"/>
+            <field name="context">{"search_default_uninvoiced":1}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+              <p>
+                Here is a list of each service product to be invoiced. You can
+                invoice service product partially, by lines of service.
+              </p>
+            </field>
+        </record>
+
+    </data>
+</odoo>

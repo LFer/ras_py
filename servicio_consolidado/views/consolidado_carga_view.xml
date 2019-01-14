@@ -1,0 +1,126 @@
+<odoo>
+    <data>
+
+        <record id="carga_camion_tree_view" model="ir.ui.view">
+            <field name="name">carga_camion_tree_view</field>
+            <field name="model">carga.camion</field>
+            <field name="arch" type="xml">
+                <tree string="Cargas">
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="load_type"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="carga_camion_form_view" model="ir.ui.view">
+            <field name="name">carga.camion.form.view</field>
+            <field name="model">carga.camion</field>
+            <field name="arch" type="xml">
+                <form string="Carga" class="o_form_project_tasks">>
+                    <header>
+                    </header>
+                    <sheet string="Carga">
+                        <div class="oe_title">
+                            <h1 class="o_row">
+                                <field name="name" placeholder="Referencia..."/>
+                            </h1>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="carpeta_camion_id"/>
+                                <field name="camion_id"/>
+                            </group>
+                        </group>
+                        <group>
+                            <field name="dangers_loads"/>
+
+                        </group>
+                        <group>
+                            <group>
+                                <field name="load_type"/>
+                                <field name="load_presentation"/>
+                                <field name="kgs"/>
+                                <field name="m3"/>
+                            </group>
+                            <group>
+                                <field name="pallet_type" attrs="{'invisible': ['|',( 'load_presentation','=','otros'), ('load_presentation','=','paquete')], 'required': [('load_presentation','=','pallet ')]}"/>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': ['|','|','|',( 'load_type','=','bulk'), ('load_type','=', 'liquido_granel'),( 'load_type','=','solido_granel'),( 'load_type','=', False)]}">
+                            <group>
+                                <field name="container_type"/>
+                                <field name="dua_linea"/>
+                                <field name="container_size"/>
+                                <field name="bookingk" string="Booking/Virada"/>
+                                <field name="preasignado"/>
+                                <field name="cut_off_documentario" attrs="{'invisible': [('preasignado','=',True)]}"/>
+                                <field name="cut_off_operative"/>
+                                <field name="libre_devolucion"/>
+                            </group>
+                            <group>
+                                <field name="container_number"/>
+                                <field name="seal_number"/>
+                                <field name="payload"/>
+                                <field name="tare"/>
+                                <field name="importe"/>
+                                <field name="costo_estimado"/>
+                                <field name="partner_seller_id" context="{'default_seller': True, 'search_default_seller': True}" />
+                                <field name="is_seller_commission"/>
+                                <div colspan="2" attrs="{'invisible': [('is_seller_commission','=',False)]}" style="border: 1px solid #DDDDDD; background-color: #EEEEEE; padding-left: 10px; padding-right: 10px; border-radius: 3px;">
+                                    <group colspan="2" col="2">
+                                        <label for="seller_commission_percent" string="Commission (%)" attrs="{'invisible': [('is_seller_commission','=',False)]}"/>
+                                        <div attrs="{'invisible': [('is_seller_commission','=',False)]}">
+                                            <field name="seller_commission_percent" class="oe_inline"/>
+                                            <span string="Cambiar a : " style="margin-left: 5px; font-weight: bold; color:#7C7BAD;" class="oe_inline" />
+                                            <field name="seller_commission_fixed_by_user" class="oe_inline oe_form_field_float" style="margin-left: 2px;"/>
+                                        </div>
+                                        <field name="commission_to_pay" attrs="{'invisible': [('is_seller_commission','=',False)]}" />
+                                        <field name="payment_date" attrs="{'invisible': [('is_seller_commission','=',False)]}"/>
+                                    </group>
+                                </div>
+                            </group>
+                        </group>
+                        <group attrs="{'invisible': ['|','|','|',( 'load_type','=','contenedor'), ('load_type','=', 'liquido_granel'),( 'load_type','=','solido_granel'),( 'load_type','=', False)]}">
+                            <group>
+                                <field name="volume"/>
+                                <field name="net_kg"/>
+                                <field name="raw_kg"/>
+                                <field name="package"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+        
+        <record id="action_cargas" model="ir.actions.act_window">
+            <field name="name">Cargas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">carga.camion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+        <record id="action_cargas_form" model="ir.actions.act_window">
+            <field name="name">Cargas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">carga.camion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="carga_camion_form_view"/>
+        </record>
+
+        <menuitem name="Cargas"
+                  id="consolidado_carga_menu"
+                  parent="menu_service_consolidado_main"
+                  action="action_cargas"
+        />
+
+    </data>
+</odoo>
