@@ -1,0 +1,122 @@
+<odoo>
+    <data>
+
+        <record id="action_consolidado" model="ir.actions.act_window">
+            <field name="name">Consolidado</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">carpeta.camion</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <record id="consolidado_tree_view" model="ir.ui.view">
+            <field name="name">carpeta.camion.tree.view</field>
+            <field name="model">carpeta.camion</field>
+            <field name="arch" type="xml">
+                <tree string="Consolidado">
+                    <field name="partner_id"/>
+                    <field name="name"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id='consolidado_form_view' model='ir.ui.view'>
+            <field name="name">consolidado.view.form</field>
+            <field name="model">carpeta.camion</field>
+            <field name="arch" type="xml">
+                <form string="Consolidado">
+                    <header>
+                        <field name="state" widget="statusbar" clickable="True"/>
+                    </header>
+                    <sheet>
+                        <h1>
+                            <field name="name" class="oe_inline" readonly="0"/>
+                        </h1>
+                        <group>
+                            <group>
+                                <field name="partner_id"/>
+                                <field name="date_in"/>
+                                <field name="date_out"/>
+                                <field name="comment"/>
+                                <field name="uom_id"/>
+
+                            </group>
+                            <group>
+                                <field name="currency_id"/>
+                            </group>
+                        </group>
+                        <separator string="Consolidated Information"/>
+                        <div colspan="4" col="4" style="border: 1px solid #7C7BAD; background-color: #EEEEEE; padding: 5px 10px; border-radius: 3px; width: 49%; float: left; height: 108px;">
+                            <div style="color: #7C7BAD; font-size: 16px; font-weight: bold; margin-bottom: 5px;">Capacidad</div>
+                            <table>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="1" width="1%" style="border-right: 1px solid #C0C0C0;">
+                                            <label for="total_kgs"/>
+                                        </td>
+                                        <td colspan="1" width="49%" style="padding-left: 10px;">
+                                            <field name="total_kgs" attrs="{'readonly': [('state','not in',['draft'])]}"/>
+                                        </td>
+                                        <td colspan="1" width="1%" style="border-right: 1px solid #C0C0C0;">
+                                            <label for="precio_venta"/>
+                                        </td>
+                                        <td colspan="1" width="49%" style="padding-left: 10px;">
+                                            <field name="precio_venta" attrs="{'readonly': [('state','not in',['draft'])]}" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td colspan="1" width="1%" style="border-right: 1px solid #C0C0C0;">
+                                            <label for="total_m3"/>
+                                        </td>
+                                        <td colspan="1" width="49%" style="padding-left: 10px;">
+                                            <field name="total_m3" attrs="{'readonly': [('state','not in',['draft'])]}"/>
+                                        </td>
+                                        <td colspan="1" width="1%" style="border-right: 1px solid #C0C0C0;">
+                                            <label for="package_cap" attrs="{'readonly': [('state','not in',['draft'])]}"/>
+                                        </td>
+                                        <td colspan="1" width="49%" style="padding-left: 10px;">
+                                            <field name="package_cap" attrs="{'readonly': [('state','not in',['draft'])]}"/>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <notebook>
+                            <page string="Cargas">
+
+
+                                <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                    <!--<field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                                    <!--<field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                                    <div class="oe_subtotal_footer_separator oe_inline o_td_label">
+                                        <label for="sum_kgs"/>
+                                    </div>
+                                    <field name="sum_kgs" nolabel="1" class="oe_subtotal_footer_separator"/>
+                                    <!--<field name="sum_kgs" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>-->
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                    <div class="oe_chatter">
+                        <field name="message_follower_ids" widget="mail_followers"/>
+                        <field name="message_ids" widget="mail_thread" options='{"thread_level": 1}'/>
+                        <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                        <field name="activity_ids" widget="mail_activity"/>
+                        <field name="message_ids" widget="mail_thread"/>
+                    </div>
+                </form>
+            </field>
+        </record>
+
+
+
+        <menuitem
+                name="Consolidados"
+                id="consolidado_menu"
+                parent="menu_service_consolidado_main"
+                action="action_consolidado"
+        />
+
+    </data>
+</odoo>

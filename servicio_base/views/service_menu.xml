@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="rt_service_base_tree_view" model="ir.ui.view">
+            <field name="name">rt.service.base.tree.view</field>
+            <field name="model">rt.service</field>
+            <field name="arch" type="xml">
+                <tree string="Carpeta"
+                      decoration-primary="state=='draft'"
+                      decoration-bf="state=='confirm'"
+                      decoration-success="state=='done'"
+                      decoration-muted="state=='cancel'"
+                      decoration-info="state=='inprocess'"
+                >
+                    <field name="name"/>
+                    <field name="reference"/>
+                    <field name="partner_invoice_id"/>
+                    <field name="partner_id"/>
+                    <field name="regimen"/>
+                    <field name="start_datetime"/>
+                    <field name="state"/>
+                    <field name="currency_id" invisible="0"/>
+                </tree>
+            </field>
+        </record>
+
+
+        <record id="action_rt_service_config" model="ir.actions.act_window">
+            <field name="name">Tipos de Servicios</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service.type</field>
+            <field name="view_mode">tree,form</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No se crearon tipos de servicios
+                </p>
+            </field>
+        </record>
+
+
+        <record id="action_rt_service_nacional" model="ir.actions.act_window">
+            <field name="name">Carpeta-Nacional</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('operation_type','=','national')]</field>
+            <field name="context">{'default_operation_type':'national'}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No se crearon Carpetas
+                </p><p>
+            </p>
+            </field>
+        </record>
+
+
+        <record id="action_rt_service_internacional" model="ir.actions.act_window">
+            <field name="name">Carpeta-Internacional</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service</field>
+            <field name="view_mode">tree,form,kanban</field>
+            <field name="domain">[('operation_type','=','international')]</field>
+            <field name="context">{'default_operation_type':'international'}</field>
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No se crearon Carpetas
+                </p>
+            </field>
+        </record>
+
+        <record id="action_ver_cargas" model="ir.actions.act_window">
+            <field name="name">Cargas</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service.carga</field>
+            <!--<field name="context">{ 'default_consolidado_id': active_id, 'default_is_consol': True, }</field>-->
+            <!--<field name="domain">[('is_consol','=',True)]</field>-->
+            <!--<field name="view_id" ref="servicio_base.view_carga_form"/>-->
+            <field name="filter" eval="True"/>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_smiling_face">
+                    No se crearon Cargas
+                </p>
+            </field>
+        </record>
+
+        <!-- Top menu item -->
+        <menuitem
+                id="menu_service_root"
+                name="Servicios"
+                web_icon="servicio_base,static/description/icon.png"
+                groups="base.group_user"
+                sequence="100"
+        />
+
+        <menuitem
+                id="menu_service_nacional_root"
+                name="Servicios Nacional"
+                parent="menu_service_root"
+                groups="base.group_user"
+                sequence="101"
+        />
+
+        <menuitem
+                id="menu_service_internacional_root"
+                name="Servicios Internacional"
+                parent="menu_service_root"
+                groups="base.group_user"
+                sequence="102"
+        />
+
+        <menuitem action="action_rt_service_nacional"
+                  parent="menu_service_nacional_root"
+                  id="servcio_nacional_menu"
+                  groups="base.group_user"
+                  sequence="103"
+        />
+
+
+        <menuitem action="action_rt_service_internacional"
+                  parent="menu_service_internacional_root"
+                  id="servcio_intnacional_menu"
+                  groups="base.group_user"
+                  sequence="104"
+        />
+
+        <menuitem
+                id="menu_service_config"
+                name="Configuracion"
+                parent="menu_service_root"
+                groups="base.group_user"
+                sequence="105"
+        />
+
+        <menuitem action="action_rt_service_config"
+                  parent="menu_service_config"
+                  id="servcio_config_menu"
+                  groups="base.group_user"
+                  sequence="120"
+        />
+
+
+
+
+
+    </data>
+</odoo>

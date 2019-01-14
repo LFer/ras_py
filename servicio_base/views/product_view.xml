@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="product_template_form_view" model="ir.ui.view">
+            <field name="name">product.template.common.form</field>
+            <field name="model">product.template</field>
+            <field name="inherit_id" ref="product.product_template_form_view"/>
+            <field name="arch" type="xml">
+
+                <field name="categ_id" position="before">
+                    <group colspan="4" col="4">
+                        <field name="bse" invisible="0"/>
+                        <field name="consolidado" invisible="0"/>
+                        <field name="flete" invisible="0"/>
+                    </group>
+                </field>
+                <xpath expr="//notebook[last()]" position="inside">
+                    <page string="Accounting">
+                    <group colspan="2" col="2">
+                        <field name="is_outgoing" />
+                    </group>
+                    <notebook>
+                        <page string="Percentage Invoice">
+                            <!--<group col="2">-->
+                                <!--<div style="padding-top: 2px;">-->
+                                    <!--<separator string="International" style="margin-top: 1px;"/>-->
+                                    <!--<div colspan="2">-->
+                                        <!--<label for="invoice_int_per" style="border-right: 1px solid #7C7BAD; margin-right: 10px;"/>-->
+                                        <!--<field name="invoice_int_per"/>-->
+                                    <!--</div>-->
+                                    <!--<div attrs="{'invisible': [('invoice_int_per','=',False)]}" style="border: 1px solid #7C7BAD; background-color: #EEEEEE; padding-left: 10px; padding-right: 10px; border-radius: 3px;">-->
+                                        <!--<group name="international_percentage" col="3">-->
+                                            <!--<field name="invoice_int_per_amount" width="10%" attrs="{'invisible': [('invoice_int_per','=',False)], 'required': [('invoice_int_per','=',True)]}"/>-->
+                                            <!--<label string="%%" attrs="{'invisible': [('invoice_int_per','=',False)]}" class="oe_inline"/>-->
+                                            <!--<field name="invoice_int_per_tax_ids" colspan="3" widget="many2many_tags" attrs="{'invisible': [('invoice_int_per','=',False)], 'required': [('invoice_int_per','=',True)]}"/>-->
+                                            <!--<field name="invoice_int_per_account_id" attrs="{'invisible': [('invoice_int_per','=',False)], 'required': [('invoice_int_per','=',True)]}" options="{'no_create': True}"/>-->
+                                        <!--</group>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                                <!--<div>-->
+                                    <!--<separator string="National" style="margin-top: 1px;"/>-->
+                                    <!--<div colspan="2">-->
+                                        <!--<label for="invoice_nat_per" style="border-right: 1px solid #7C7BAD; margin-right: 10px;"/>-->
+                                        <!--<field name="invoice_nat_per"/>-->
+                                    <!--</div>-->
+                                    <!--<div attrs="{'invisible': [('invoice_nat_per','=',False)]}" style="border: 1px solid #7C7BAD; background-color: #EEEEEE; padding-left: 10px; padding-right: 10px; border-radius: 3px;">-->
+                                        <!--<group name="national_percentage" col="3">-->
+                                            <!--<field name="invoice_nat_per_amount" width="10%" attrs="{'invisible': [('invoice_nat_per','=',False)], 'required': [('invoice_nat_per','=',True)]}"/>-->
+                                            <!--<label string="%%" attrs="{'invisible': [('invoice_nat_per','=',False)]}" class="oe_inline"/>-->
+                                            <!--<field name="invoice_nat_per_tax_ids" colspan="3" widget="many2many_tags" attrs="{'invisible': [('invoice_nat_per','=',False)], 'required': [('invoice_nat_per','=',True)]}"/>-->
+                                            <!--<field name="invoice_nat_per_account_id" attrs="{'invisible': [('invoice_nat_per','=',False)], 'required': [('invoice_nat_per','=',True)]}" options="{'no_create': True}"/>-->
+                                        <!--</group>-->
+                                    <!--</div>-->
+                                <!--</div>-->
+                            <!--</group>-->
+                        </page>
+                    </notebook>
+                </page>
+                </xpath>
+                <!-- campos a ocultar -->
+                <field name="sale_ok" position="replace">
+                    <field name="sale_ok" invisible="1"/>
+                </field>
+                <label for="sale_ok" position="replace">
+                    <label for="sale_ok" invisible="1"/>
+                </label>
+                <field name="list_price" position="replace">
+                    <field name="list_price" invisible="1"/>
+                </field>
+
+            </field>
+        </record>
+
+    </data>
+</odoo>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="rt_invoice_form" model="ir.ui.view">
+            <field name="name">account.invoice.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <data>
+                    <notebook position="inside">
+                        <page string="Operativa">
+                            <group col="2" style="border-bottom: 1px solid #DDDDDD;">
+                                <field name="rt_service_product_id" invisible="0"/>
+                                <field name="rt_service_id" invisible="0"/>
+                            </group>
+                        </page>
+                    </notebook>
+                </data>
+            </field>
+        </record>
+    </data>
+</odoo>

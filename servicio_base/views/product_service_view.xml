@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+        <record id="action_rt_service_product_tree_normal" model="ir.actions.act_window">
+            <field name="name">Servicios Nacional</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service.productos</field>
+            <field name="domain">[('operation_type','=','national')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    Here is a list of each service product to be invoiced. You can
+                    invoice service product partially, by lines of service.
+                </p>
+            </field>
+        </record>
+
+        <record id="rt_service_product_tree_view" model="ir.ui.view">
+            <field name="name">rt.service.product.tree</field>
+            <field name="model">rt.service.productos</field>
+            <field name="arch" type="xml">
+                <tree string="Servicios" fonts="bold:state=='confirm';italic:state=='done'"
+                      colors="grey:tree_color=='grey';blue:tree_color=='blue';red:tree_color=='red';#ffcc00:tree_color=='gold';#ff9900:tree_color=='orange'"
+                      create="false"
+                >
+                    <field name="name"/>
+                    <field name="partner_id"/>
+                    <field name="product_id"/>
+                    <field name="start_datetime"/>
+                    <field name="state"/>
+                    <field name="tree_color" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="rt_service_product_from_view" model="ir.ui.view">
+            <field name="name">rt.service.product.from</field>
+            <field name="model">rt.service.productos</field>
+            <field name="arch" type="xml">
+                <form string="Productos">
+                    <sheet>
+                        <div  attrs="{'invisible': [('product_type','!=', False)]}" >
+                            <h2>Selecione el Origen del Servicio</h2>
+                        </div>
+                        <goup>
+                            <h2>
+                                <field name="product_type"/>
+                            </h2>
+                        </goup>
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                        <div attrs="{'invisible': [('product_type','=', False)]}">
+                            <group>
+                                <group>
+                                    <field name="product_id"/>
+                                    <field name="partner_id" attrs="{'invisible': [('product_type','=', 'propio')]}" />
+                                    <field name="importe" widget="monetary"/>
+                                    <field name="operation_type" invisible="1"/>
+                                    <field name="valor_compra" widget="monetary" attrs="{'invisible': [('product_type','=', 'propio')]}"/>
+                                </group>
+                                <group>
+                                    <field name="currency_id"/>
+                                    <field name="invoiced" invisible="0"/>
+                                </group>
+                            </group>
+                            <group>
+                                <group>
+                                    <field name="rt_carga_id" invisible="1"/>
+                                    <field name="rt_service_id" invisible="1"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="start_datetime"/>
+                                    <field name="stop_datetime"/>
+                                    <field name="vehicle_id"/>
+                                    <field name="driver_id"/>
+                                    <field name="vehicle_type"/>
+                                    <field name="matricula_dos"/>
+                                    <field name="action_type"/>
+                                    <field name="location_type" invisible="1"/>
+                                    <field name="origin_id"/>
+                                    <field name="destiny_id"/>
+                                </group>
+                                <group>
+                                    <field name="driver_commission"/>
+                                </group>
+                            </group>
+                        </div>
+                        <notebook>
+                            <page string="Facturas de Cliente">
+                                <field name="invoices_ids"
+                                       context="{   'form_view_ref':'account.invoice_form',
+                                                    'tree_view_ref':'account.invoice_tree',
+                                                }"/>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+
+
+        <record id="action_rt_service_product_inter_tree_normal" model="ir.actions.act_window">
+            <field name="name">Servicios Internacional</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">rt.service.productos</field>
+            <field name="domain">[('operation_type','=','international')]</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p>
+                    Here is a list of each service product to be invoiced. You can
+                    invoice service product partially, by lines of service.
+                </p>
+            </field>
+        </record>
+
+
+        <menuitem action="action_rt_service_product_tree_normal"
+                  parent="menu_service_nacional_root"
+                  id="producto_nacional_menu"
+                  groups="base.group_user"
+                  sequence="108"
+        />
+
+
+        <menuitem action="action_rt_service_product_inter_tree_normal"
+                  parent="menu_service_internacional_root"
+                  id="service_product_intnacional_menu"
+                  groups="base.group_user"
+                  sequence="109"
+        />
+
+
+    </data>
+</odoo>

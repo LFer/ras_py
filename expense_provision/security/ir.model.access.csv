@@ -1,0 +1,4 @@
+name,perm_create,perm_unlink,perm_read,perm_write,group_id/id,model_id/id
+view_expenses_taxes,1,1,1,1,account.group_account_user,expense_provision.model_expense_provision_tax
+view_expenses_lines,1,1,1,1,account.group_account_user,expense_provision.model_expense_provision_line
+view_expeses,1,1,1,1,account.group_account_user,expense_provision.model_expense_provision
